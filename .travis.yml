@@ -1,0 +1,36 @@
+sudo: required
+
+language: python
+
+services:
+  - docker
+
+env:
+  global:
+    - VERSION_MEDICAL="10.0.0.1"
+    - DOCKER_REPO="laslabs/odoo-medical"
+    - DOCKER_USER="laslabsbot"
+    - secure: "nAynym5MlGQJq/ME7ilwZFNQxKQBfJzaOQ/AmfnP+r+p5SBFeF8uXRmTXIJ76FrCQDWTLhH5df/4v+8xc1G1HSdgVuqOiNpjn0pr7/BHydiJ1oOt75jPwkRd7iB1tT+hAB9F+irH6u8+/u2VW7pIYlLoE2s04JRiOT55Y1C9t40MXr+sDKmp8VNka0TnSYInlnYdRgQfu85ETo1R+ccFu8XDpu/jiSI/TkmEQuOwthwEq/hdSIS8UBQyyzLhhDfM0usyTHv9zpaZRucaqvokR9IZglkWRIySNM7Gntmw4iMoJ3deGR5PdJ9bzZkKpJD4h5vIyNYE1of+vCJD4IaAtajgpzYdTJnGeGd7BzOkPGUIvCiIkn080ZITKv6BusxVeAS420Vc/ETI434yRA5uENMD2Y0cUsRaQ3vYU5wAK5qY8fmYnEcmOkqjq7T8GrMgEdCi3avGZAM4NSv4mvXPVMLrIyuKkV3nrQ7tdTPjwwGszL2RHNHom90OAHMWoztnVRMXToLZ206kr9/tIG57XhqvQpD1SSqdZejsFHYGO/GB6cSqtAWaKeQb27FiU6F7hcwoS7pyu7T8IEZc/5AasN54OcGsnwhhWxnBoc8AhcAVAXqzf/vZbiULQ6Nq2mOkWTYEToEmH/+afwDcu2HQ6h3q7gMq6E3GSn/p3UkHDOo="
+    - PORTS="8069:8069"
+    - LINKS="db:db"
+    - DAEMONIZE="1"
+    - BUILD_ARGS="PGUSER=odoo,PGPASSWORD=odoo,PGHOST=db,PGDATABASE=test"
+
+  matrix:
+    - DOCKER_DIR="10.0-dev" TESTS="1" HUB="1" DOCKER_TAG="${VERSION_MEDICAL}-dev"
+    - DOCKER_DIR="10.0-dev" LINT_CHECK="1"
+
+before_install:
+  - docker pull kiasaki/alpine-postgres
+  - docker run -d -e POSTGRES_USER="odoo" -e POSTGRES_PASSWORD="odoo" --name="db" kiasaki/alpine-postgres
+
+install:
+  - git clone --depth=1 https://github.com/LasLabs/docker-quality-tools.git ${HOME}/docker-quality-tools
+  - export PATH=${HOME}/docker-quality-tools/travis:${PATH}
+  - travis_install_all
+
+script:
+  - travis_run_all
+
+after_success:
+  - travis_after_success_all
