@@ -1,5 +1,5 @@
-# XXX Base version must match $ODOO_VERSION in .env file
-FROM tecnativa/odoo-base:10.0
+# FROM tecnativa/odoo-base:10.0
+FROM lasley/docker-odoo-base
 MAINTAINER LasLabs Inc <support@laslabs.com>
 
 # Metadata
@@ -15,3 +15,5 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vendor="LasLabs Inc." \
       org.label-schema.version=$VERSION \
       org.label-schema.schema-version="1.0"
+
+USER root

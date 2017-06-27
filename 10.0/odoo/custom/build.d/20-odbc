@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+
+cp /opt/odoo/custom/build.d/etc/odbc*.ini /etc/

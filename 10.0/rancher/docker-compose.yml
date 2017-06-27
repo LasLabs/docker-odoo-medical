@@ -1,0 +1,116 @@
+version: '2'
+
+volumes:
+  db-data:
+    driver: rancher-ebs
+    driver_opts:
+      size: 50
+      encrypted: true
+      ec2_az: us-east-1b
+      kmsKeyId:
+  web-data:
+    driver: rancher-ebs
+    driver_opts:
+      size: 50
+      encrypted: true
+      ec2_az: us-east-1b
+      kmsKeyId:
+
+services:
+
+  install:
+    image: laslabs/odoo-medical:10.0
+    command: 'install-addons'
+    depends_on:
+      - db
+    volumes:
+      - web-data:/var/lib/odoo
+    tty: true
+    environment:
+      PGPASSWORD: 'DB PASSWORD'
+      PGUSER: 'odoo'
+    labels:
+      io.rancher.container.pull_image: 'always'
+      io.rancher.container.start_once: 'true'
+
+  web:
+    image: laslabs/odoo-medical:10.0
+    restart: unless-stopped
+    command: '/usr/local/bin/odoo --max-cron-threads=0'
+    depends_on:
+      - db
+      - install
+    volumes:
+      - web-data:/var/lib/odoo
+    tty: true
+    ports:
+      - 8069
+      - 8071
+    environment:
+      WAIT_NOHOST: 'install'
+      PGPASSWORD: 'DB PASSWORD'
+      PGUSER: 'odoo'
+      ADMIN_PASSWORD: 'ADMIN PASSWORD'
+      PROXY_MODE: 'true'
+    labels:
+      traefik.port: '8069'
+      traefik.domain: example.com
+      traefik.enable: 'true'
+      traefik.frontend.passHostHeader: 'true'
+      io.rancher.container.pull_image: 'always'
+
+  connector:
+    image: laslabs/odoo-medical:10.0
+    restart: unless-stopped
+    command: '/usr/local/bin/odoo --load=web,web_kanban,connector --max-cron-threads=0'
+    depends_on:
+      - db
+      - install
+    volumes:
+      - web-data:/var/lib/odoo
+    tty: true
+    environment:
+      WAIT_NOHOST: 'install'
+      PGUSER: 'odoo'
+      ADMIN_PASSWORD: 'ADMIN PASSWORD'
+      ODOO_QUEUE_JOB_CHANNELS: 'root:4'
+    labels:
+      io.rancher.container.pull_image: 'always'
+
+  cron:
+    image: laslabs/odoo-medical:10.0
+    restart: unless-stopped
+    command: '/usr/local/bin/odoo'
+    depends_on:
+      - db
+      - install
+    volumes:
+      - web-data:/var/lib/odoo
+    tty: true
+    environment:
+      WAIT_NOHOST: 'install'
+      PGPASSWORD: 'DB PASSWORD'
+      PGUSER: 'odoo'
+    labels:
+      io.rancher.container.pull_image: 'always'
+
+  db:
+    image: postgres:9.6-alpine
+    restart: unless-stopped
+    depends_on:
+      - db-utils
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: 'DB PASSWORD'
+      POSTGRES_USER: 'odoo'
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata
+    labels:
+      io.rancher.sidekicks: db-utils
+
+  db-utils:
+    image: grupocitec/pgutils
+    volumes:
+      - /tmp:/tmp
+    labels:
+      io.rancher.container.start_once: 'true'

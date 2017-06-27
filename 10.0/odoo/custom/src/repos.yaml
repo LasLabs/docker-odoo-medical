@@ -1,0 +1,177 @@
+# Odoo is always required
+./odoo:
+  defaults:
+    # Shallow repositories (1=1) are faster & thinner
+    # You may need a bigger depth when merging PRs
+    depth: $DEPTH_DEFAULT
+  remotes:
+    ocb: https://github.com/OCA/OCB.git
+    odoo: https://github.com/odoo/odoo.git
+  target:
+    ocb 10.0
+  merges:
+    - ocb 10.0
+    # Example of a merge of the PR with the number <PR>
+    # - oca refs/pull/<PR>/head
+
+./partner-contact:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    oca: https://github.com/OCA/partner-contact.git
+    laslabs: https://github.com/LasLabs/partner-contact.git
+  target:
+    laslabs aggregated_branch_name
+  merges:
+    - oca 10.0
+
+./server-tools:
+  defaults:
+    depth: 10
+  remotes:
+    oca: https://github.com/OCA/server-tools.git
+    laslabs: https://github.com/LasLabs/server-tools.git
+  target:
+    laslabs aggregated_branch_name
+  merges:
+    - oca 10.0
+    - laslabs release/10.0/LABS-306-auth_totp-implement-time-based-one-time
+
+./web:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    oca: https://github.com/OCA/web.git
+    laslabs: https://github.com/LasLabs/web.git
+  merges:
+    - oca 10.0
+  target: laslabs aggregated_branch_name
+
+./website:
+  defaults:
+    depth: 10
+  remotes:
+    oca: https://github.com/OCA/website.git
+    laslabs: https://github.com/LasLabs/website.git
+  merges:
+    - oca 10.0
+    - laslabs release/10.0/website_field_autocomplete_related
+  target: oca 10.0
+
+./vertical-medical:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    oca: https://github.com/OCA/vertical-medical.git
+    laslabs: https://github.com/LasLabs/vertical-medical.git
+  merges:
+    # - oca 10.0
+    - laslabs release/10.0
+    - laslabs hotfix/10.0/LABS-362-carepoint_connector
+    - laslabs hotfix/10.0/smd-depends
+  target: laslabs aggregated_branch_name
+
+./e-commerce:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    oca: https://github.com/OCA/e-commerce.git
+    laslabs: https://github.com/LasLabs/e-commerce.git
+  merges:
+    - oca 10.0
+    - laslabs product-unavailable
+    - laslabs sale-price-subtotal
+    - laslabs 10.0-mig-website_sale_qty
+    - laslabs feature/10.0/SMD-248-add-new-products-to-website-category
+    - laslabs release/10.0/website_sale_product_display_name
+  target:
+    laslabs aggregated_branch_name
+
+./product-attribute:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    oca: https://github.com/OCA/product-attribute.git
+    laslabs: https://github.com/LasLabs/product-attribute.git
+  merges:
+    - oca 10.0
+    - laslabs 10.0-pricelist_per_product-cpi
+    - laslabs feature/10.0/SMD-249-create-product_default_image
+  target:
+    laslabs aggregated_branch_name
+
+./delivery-carrier:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    oca: https://github.com/OCA/delivery-carrier.git
+    laslabs: https://github.com/LasLabs/delivery-carrier.git
+  merges:
+    - oca 10.0
+  target:
+    laslabs aggregated_branch_name
+
+./project:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    oca: https://github.com/OCA/project.git
+    laslabs: https://github.com/LasLabs/project.git
+  merges:
+    - oca 10.0
+  target:
+    laslabs aggregated_branch_name
+
+./knowledge:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    oca: https://github.com/OCA/knowledge.git
+    laslabs: https://github.com/LasLabs/knowledge.git
+  merges:
+    - oca 10.0
+  target:
+    laslabs aggregated_branch_name
+
+./social:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    oca: https://github.com/OCA/social.git
+    laslabs: https://github.com/LasLabs/social.git
+  merges:
+    - oca 10.0
+  target:
+    laslabs aggregated_branch_name
+
+./connector:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    oca: https://github.com/OCA/connector.git
+    laslabs: https://github.com/LasLabs/connector.git
+  merges:
+    - laslabs migration-connector-10.0
+  target:
+    laslabs aggregated_branch_name
+
+./connector-carepoint:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    laslabs: https://github.com/LasLabs/odoo-connector-carepoint.git
+  merges:
+    - laslabs feature/10.0/LABS-362-v10_migration
+  target:
+    laslabs aggregated_branch_name
+
+./smd-web:
+  defaults:
+    depth: $DEPTH_DEFAULT
+  remotes:
+    laslabs: ssh://git@repo.laslabs.com:7999/smd/web.git
+  merges:
+    - laslabs 10.0
+    - laslabs product-pricelist-import
+  target:
+    laslabs aggregated_branch_name

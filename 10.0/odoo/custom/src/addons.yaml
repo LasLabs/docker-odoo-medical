@@ -1,0 +1,126 @@
+partner-contact:
+#  - partner_contact_birthdate
+#  - partner_contact_gender
+#  - partner_contact_personal_information_page
+#  - partner_contact_weight
+#  - partner_firstname
+#  - partner_identification
+  - "*"
+
+product-attribute:
+#  - product_pricelist_tier
+#  - product_uom
+  - "*"
+
+server-tools:
+#  - auth_signup_verify_email
+#  - auth_totp
+#  - auto_backup
+#  - base_kanban_stage
+#  - base_location
+#  - base_user_gravatar
+#  - disable_odoo_online
+#  - mail_tracking
+#  - mail_tracking_mailgun
+#  - users_ldap_populate
+#  - users_ldap_mail
+#  - users_ldap_populate
+  - "*"
+
+web:
+#  - web_responsive
+  - "*"
+
+website:
+#  - website_field_autocomplete
+#  - website_field_autocomplete_related
+#  - website_sale_hide_empty_category
+  - "*"
+
+vertical-medical:
+#  - mail_thread_medical_prescription
+#  - medical
+#  - medical_base_us
+#  - medical_center
+#  - medical_insurance
+#  - medical_insurance_pricelist
+#  - medical_insurance_us
+#  - medical_manufacturer
+#  - medical_medicament
+#  - medical_medicament_attribute
+#  - medical_medicament_storage
+#  - medical_medicament_us
+#  - medical_medication
+#  - medical_pathology
+#  - medical_patient_disease
+#  - medical_patient_disease_allergy
+#  - medical_patient_dob
+#  - medical_patient_species
+#  - medical_patient_us
+#  - medical_pharmacy
+#  - medical_pharmacy_us
+#  - medical_physician
+#  - medical_physician_us
+#  - medical_prescription
+#  - medical_prescription_disease
+#  - medical_prescription_disease_state
+#  - medical_prescription_state
+#  - medical_prescription_us
+#  - sale_crm_medical_prescription
+#  - sale_medical_medicament
+#  - sale_medical_prescription
+#  - sale_stock_medical_prescription
+#  - sale_stock_medical_prescription_us
+#  - website_portal_medical
+#  - website_portal_medical_patient
+#  - website_portal_medical_patient_species
+#  - website_portal_medical_prescription_order_line
+#  - website_pricelist_medical_insurance
+#  - website_sale_medical_medicament
+#  - website_sale_medical_medicament_us
+#  - website_sale_medical_prescription
+#  - website_sale_medical_prescription_us
+  - "*"
+
+e-commerce:
+#  - product_unavailable
+#  - website_sale_category_alphabetic
+#  - website_sale_price_subtotal
+#  - website_sale_product_display_name
+#  - website_sale_qty
+  - "*"
+
+product-attribute:
+  - "*"
+
+connector-carepoint:
+  - connector_carepoint
+  - first_databank
+  - website_first_databank
+
+delivery-carrier:
+  - "*"
+
+projects:
+  - "*"
+
+knowledge:
+  - "*"
+
+connector:
+  - connector
+
+social:
+  - "*"
+
+project:
+#  - project_task_code
+#  - project_task_dependency
+  - "*"
+
+smd-web:
+#  - medicament_pricelist_import
+#  - web_theme_smdrugstore
+#  - website_brand_smdrugstore
+#  - website_sale_us
+  - "*"

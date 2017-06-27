@@ -1,0 +1,14 @@
+# Use this compose file to build the scaffold into a usable image.
+
+version: "2.1"
+
+services:
+  odoo:
+    image: laslabs/odoo-medical:10.0
+    environment:
+      ODOO_MAJOR: 10
+      ODOO_MINOR: 10.0
+      DB_VERSION: 9.6
+      DEPTH_DEFAULT: 1
+    build:
+      context: ./odoo
